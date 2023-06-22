@@ -76,6 +76,24 @@ export const logoutUserAct = createAsyncThunk("user/logout", async () => {
   localStorage.removeItem("userInfo");
   return null;
 });
+//get profile
+export const getProfileAction = createAsyncThunk(
+  "users/getProfile",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const token = getState()?.userRegister?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.get(`${baseURL}/users/profile`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data?.message);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: "users",
@@ -104,9 +122,23 @@ const userSlice = createSlice({
       state.loading = false;
       state.userAuth.error = action.payload;
     });
+    //logout action
     builder.addCase(logoutUserAct.fulfilled, (state, action) => {
       state.loading = false;
       state.userAuth.userInfo = null;
+    });
+    //profile action
+    builder.addCase(getProfileAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getProfileAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.profile = action.payload;
+    });
+    builder.addCase(getProfileAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.profile = " ";
     });
   },
 });
