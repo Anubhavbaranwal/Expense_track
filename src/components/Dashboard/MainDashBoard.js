@@ -13,7 +13,7 @@ const MainDashBoard = () => {
   const { loading, profile, error } = useSelector(
     (store) => store.userRegister
   );
-  console.log(loading, profile, error);
+  // console.log(loading, profile, error);
   return (
     <>
       {loading ? (
@@ -22,8 +22,8 @@ const MainDashBoard = () => {
         <h2 className="text-center text-3xl mt-5 text-red-800">{error}</h2>
       ) : (
         <>
-          <AccountSummary profile={profile}/>
-          <AccountList profile={profile}/>
+          <AccountSummary profile={profile} />
+          <AccountList profile={profile} />
         </>
       )}
     </>
