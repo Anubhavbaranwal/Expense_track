@@ -35,7 +35,7 @@ const AccountSummary = ({ profile }) => {
         <>
           <section className="py-20">
             <h1 style={{ textAlign: "center" }}>
-              Account Summary - for {profile?.accounts.length} accounts
+              Account Summary - for {profile?.accounts?.length} accounts
             </h1>
             <div className="container mx-auto px-4">
               <div className="py-4 flex flex-wrap items-center text-center rounded-lg border">

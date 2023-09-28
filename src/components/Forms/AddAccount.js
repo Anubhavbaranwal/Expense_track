@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { createAccountAction } from "../Redux/accountSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddAccount = () => {
-  const [transaction, setTransaction] = useState({
+  const navigate = useNavigate();
+  const dispatch = useDispatch;
+  const [account, setaccount] = useState({
     title: "",
     initialBalance: "",
     transactionType: "",
@@ -10,17 +15,34 @@ const AddAccount = () => {
     accountType: "",
   });
   //---Destructuring---
-  const { title, initialBalance, notes, accountType } = transaction;
+  const { title, initialBalance, notes, accountType } = account;
   //---onchange handler----
   const onChange = (e) => {
-    setTransaction({ ...transaction, [e.target.name]: e.target.value });
+    setaccount({ ...account, [e.target.name]: e.target.value });
   };
 
   //---onsubmit handler----
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(transaction);
+    dispatch(createAccountAction(account));
   };
+  //get store data
+  const {
+    account: accountCreated,
+    loading,
+    error,
+    success,
+  } = useSelector((state) => state?.Accounts);
+  //redirect after 3 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      if (success) {
+        navigate("/dashboard");
+        //reload tye page
+        window.location.reload();
+      }
+    }, 3000);
+  }, [success]);
   return (
     <section className="py-16 xl:pb-56 bg-white overflow-hidden">
       <div className="container px-4 mx-auto">
@@ -31,7 +53,7 @@ const AddAccount = () => {
           <p className="mb-12 font-medium text-lg text-gray-600 leading-normal">
             Create an account(Project) to start tracking your transactions
           </p>
-          <form onSubmit={onSubmit}>
+          <form onSubmit={() => onSubmit}>
             <label className="block mb-5">
               <input
                 value={title}
@@ -60,7 +82,7 @@ const AddAccount = () => {
                 value={accountType}
                 onChange={onChange}
                 name="accountType"
-                class="appearance-none block w-full py-3 px-4 leading-tight text-gray-700 bg-gray-200 focus:bg-white border border-gray-200 focus:border-gray-500 rounded focus:outline-none"
+                className="appearance-none block w-full py-3 px-4 leading-tight text-gray-700 bg-gray-200 focus:bg-white border border-gray-200 focus:border-gray-500 rounded focus:outline-none"
               >
                 <option>-- Select Account Type --</option>
                 <option value="Savings">Savings</option>
