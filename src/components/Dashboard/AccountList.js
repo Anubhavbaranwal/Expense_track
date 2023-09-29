@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const AccountList = ({ profile }) => {
   const accounts = profile?.accounts;
-  console.log(accounts);
+  console.log(profile);
   return (
     <>
       {profile?.accounts?.length <= 0 ? (

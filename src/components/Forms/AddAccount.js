@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const AddAccount = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [account, setaccount] = useState({
     title: "",
     initialBalance: "",
@@ -53,7 +53,7 @@ const AddAccount = () => {
           <p className="mb-12 font-medium text-lg text-gray-600 leading-normal">
             Create an account(Project) to start tracking your transactions
           </p>
-          <form onSubmit={() => onSubmit}>
+          <form onSubmit={onSubmit}>
             <label className="block mb-5">
               <input
                 value={title}

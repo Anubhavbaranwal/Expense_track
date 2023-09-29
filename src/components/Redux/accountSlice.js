@@ -12,7 +12,6 @@ const initialState = {
   isUpdated: false,
 };
 //acccount to create acount
-
 export const createAccountAction = createAsyncThunk(
   "account/create",
   async (payload, { rejectValue, getState, dispatch }) => {
@@ -26,7 +25,7 @@ export const createAccountAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        `${baseURL}/accounts`,
+        `${baseURL}/accounts/`,
         {
           name,
           accountType,
@@ -41,6 +40,9 @@ export const createAccountAction = createAsyncThunk(
     }
   }
 );
+
+//account to create account/project
+
 export const updateAccountAction = createAsyncThunk(
   "account/update",
   async (payload, { rejectWithValue, getState, dispatch }) => {
@@ -74,7 +76,7 @@ export const updateAccountAction = createAsyncThunk(
 //get single account
 export const getSingleAccountAction = createAsyncThunk(
   "account/get-details",
-  async (id, { rejectWithValue, getState, dispatch }) => {
+  async (_id, { rejectWithValue, getState, dispatch }) => {
     try {
       //get the token
       const token = getState()?.users?.userAuth?.userInfo?.token;
@@ -86,7 +88,7 @@ export const getSingleAccountAction = createAsyncThunk(
       };
       //make the request
       const { data } = await axios.get(
-        `${baseURL}/accounts/${id}`,
+        `${baseURL}/accounts/${_id}`,
 
         config
       );
