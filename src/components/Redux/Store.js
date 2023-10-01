@@ -5,7 +5,7 @@ import acccountReducer from "./accountSlice";
 const Store = configureStore({
   reducer: {
     userRegister: userSlice,
-    Accounts:acccountReducer
+    Accounts: acccountReducer,
   },
 });
 export default Store;

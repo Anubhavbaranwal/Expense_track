@@ -13,7 +13,7 @@ const MainDashBoard = () => {
   const { loading, profile, error } = useSelector(
     (store) => store.userRegister
   );
-  // console.log(loading, profile, error);
+  console.log(loading);
   return (
     <>
       {loading ? (

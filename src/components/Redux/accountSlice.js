@@ -4,7 +4,7 @@ import baseURL from "../../Utils";
 
 //inital state
 const initialState = {
-  account: null,
+  account: {},
   accounts: [],
   error: null,
   loading: false,
@@ -25,7 +25,7 @@ export const createAccountAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        `${baseURL}/accounts/`,
+        `${baseURL}/accounts`,
         {
           name,
           accountType,
@@ -76,7 +76,7 @@ export const updateAccountAction = createAsyncThunk(
 //get single account
 export const getSingleAccountAction = createAsyncThunk(
   "account/get-details",
-  async (_id, { rejectWithValue, getState, dispatch }) => {
+  async (id, { rejectWithValue, getState, dispatch }) => {
     try {
       //get the token
       const token = getState()?.users?.userAuth?.userInfo?.token;
@@ -87,11 +87,7 @@ export const getSingleAccountAction = createAsyncThunk(
         },
       };
       //make the request
-      const { data } = await axios.get(
-        `${baseURL}/accounts/${_id}`,
-
-        config
-      );
+      const { data } = await axios.get(`${baseURL}/accounts/${id}`, config);
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);

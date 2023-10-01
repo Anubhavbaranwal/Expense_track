@@ -6,7 +6,7 @@ const AccountList = ({ profile }) => {
   console.log(profile);
   return (
     <>
-      {profile?.accounts?.length <= 0 ? (
+      {accounts?.length <= 0 ? (
         // <h2 className="text-center text-xl mt-5">No Account List Found </h2>
         <div
           style={{

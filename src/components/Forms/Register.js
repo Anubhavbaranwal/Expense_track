@@ -28,8 +28,8 @@ const Login = () => {
   };
 
   //redirect to login
-  if(userAuth?.userInfo?.status){
-    window.location.href="/login"
+  if (userAuth?.userInfo?.status) {
+    window.location.href = "/login";
   }
   return (
     <>

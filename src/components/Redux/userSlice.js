@@ -134,6 +134,7 @@ const userSlice = createSlice({
     builder.addCase(getProfileAction.fulfilled, (state, action) => {
       state.loading = false;
       state.profile = action.payload;
+      console.log(action.payload);
     });
     builder.addCase(getProfileAction.rejected, (state, action) => {
       state.loading = false;
