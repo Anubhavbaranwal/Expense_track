@@ -4,20 +4,20 @@ import baseURL from "../../Utils";
 
 //initialState
 const initialState = {
-  account: {},
-  accounts: [],
-  error: null,
+  transactions: [],
+  transaction: {},
   loading: false,
-  success: false,
+  error: null,
+  isAdded: false,
   isUpdated: false,
 };
 
-//account to create account/project
+//create transaction
 
-export const createAccountAction = createAsyncThunk(
-  "account/create",
+export const createTransactionAction = createAsyncThunk(
+  "transaction/create",
   async (payload, { rejectWithValue, getState, dispatch }) => {
-    const { name, initialBalance, accountType, notes } = payload;
+    const { name, account, transactionType, amount, category, notes } = payload;
     try {
       //get the token
       const token = getState()?.users?.userAuth?.userInfo?.token;
@@ -29,12 +29,15 @@ export const createAccountAction = createAsyncThunk(
       };
       //make the request
       const { data } = await axios.post(
-        `${baseURL}/accounts`,
+        `${baseURL}/transactions`,
         {
           name,
-          accountType,
+          account,
+          transactionType,
+          amount,
+          category,
           notes,
-          initialBalance,
+          account: payload.id,
         },
         config
       );
@@ -45,12 +48,12 @@ export const createAccountAction = createAsyncThunk(
   }
 );
 
-//account to create account/project
-
-export const updateAccountAction = createAsyncThunk(
-  "account/update",
+// update transaction
+export const updateTransactionAction = createAsyncThunk(
+  "transaction/update",
   async (payload, { rejectWithValue, getState, dispatch }) => {
-    const { name, initialBalance, accountType, notes, id } = payload;
+    const { name, account, transactionType, amount, category, notes, id } =
+      payload;
     try {
       //get the token
       const token = getState()?.users?.userAuth?.userInfo?.token;
@@ -62,12 +65,15 @@ export const updateAccountAction = createAsyncThunk(
       };
       //make the request
       const { data } = await axios.put(
-        `${baseURL}/accounts/${id}`,
+        `${baseURL}/transactions/${id}`,
         {
           name,
-          accountType,
+          account,
+          transactionType,
+          amount,
+          category,
           notes,
-          initialBalance,
+          id,
         },
         config
       );
@@ -77,10 +83,9 @@ export const updateAccountAction = createAsyncThunk(
     }
   }
 );
-
-//get single account
-export const getSingleAccountAction = createAsyncThunk(
-  "account/get-details",
+// fetch transaction
+export const getTransactionAction = createAsyncThunk(
+  "transaction/details",
   async (id, { rejectWithValue, getState, dispatch }) => {
     try {
       //get the token
@@ -92,75 +97,68 @@ export const getSingleAccountAction = createAsyncThunk(
         },
       };
       //make the request
-      const { data } = await axios.get(
-        `${baseURL}/accounts/${id}`,
-
-        config
-      );
+      const { data } = await axios.get(`${baseURL}/transactions/${id}`, config);
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);
     }
   }
 );
+//slice
 
 //create slice
-const accontsSlice = createSlice({
-  name: "accounts",
+const transactionsSlice = createSlice({
+  name: "transactions",
   initialState,
   extraReducers: (builder) => {
-    //create account
-    builder.addCase(createAccountAction.pending, (state) => {
+    //create transaction
+    builder.addCase(createTransactionAction.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(createAccountAction.fulfilled, (state, action) => {
+    builder.addCase(createTransactionAction.fulfilled, (state, action) => {
       state.loading = false;
-      state.success = true;
-      state.account = action.payload;
+      state.isAdded = true;
+      state.transaction = action.payload;
     });
-    builder.addCase(createAccountAction.rejected, (state, action) => {
+    builder.addCase(createTransactionAction.rejected, (state, action) => {
       state.loading = false;
-      state.success = false;
-      state.account = null;
-      state.error = action.payload;
-    });
-    //fetch single account
-    builder.addCase(getSingleAccountAction.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getSingleAccountAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.success = true;
-      state.account = action.payload;
-    });
-    builder.addCase(getSingleAccountAction.rejected, (state, action) => {
-      state.loading = false;
-      state.success = false;
-      state.account = null;
+      state.isAdded = false;
+      state.transaction = null;
       state.error = action.payload;
     });
 
-    //update account
-    builder.addCase(updateAccountAction.pending, (state) => {
+    //update transaction
+    builder.addCase(updateTransactionAction.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(updateAccountAction.fulfilled, (state, action) => {
+    builder.addCase(updateTransactionAction.fulfilled, (state, action) => {
       state.loading = false;
-      state.success = true;
       state.isUpdated = true;
-      state.account = action.payload;
+      state.transaction = action.payload;
     });
-    builder.addCase(updateAccountAction.rejected, (state, action) => {
+    builder.addCase(updateTransactionAction.rejected, (state, action) => {
       state.loading = false;
-      state.success = false;
-      state.account = null;
-      state.error = action.payload;
       state.isUpdated = false;
+      state.transaction = null;
+      state.error = action.payload;
+    });
+
+    //get transaction
+    builder.addCase(getTransactionAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(getTransactionAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.transaction = action.payload;
+    });
+    builder.addCase(getTransactionAction.rejected, (state, action) => {
+      state.loading = false;
+      state.transaction = null;
+      state.error = action.payload;
     });
   },
 });
 
-//Generate reducer
-const accountsReducer = accontsSlice.reducer;
-
-export default accountsReducer;
+//generate the reducer
+const transactionsReducer = transactionsSlice.reducer;
+export default transactionsReducer;
