@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   getSingleAccountAction,
   updateAccountAction,
-} from "../../redux/slice/accounts/accountsSlice";
+} from "../Redux/accountSlice";
 
 const EditAccount = () => {
   //get account id
