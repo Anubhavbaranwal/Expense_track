@@ -1,24 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AccountList = ({ profile }) => {
-  const accounts = profile?.accounts;
-  console.log(profile);
+const AccountList = ({ profile: { accounts } }) => {
+  console.log(accounts);
+
   return (
     <>
       {accounts?.length <= 0 ? (
-        // <h2 className="text-center text-xl mt-5">No Account List Found </h2>
         <div
           style={{
-            width: "100%",
             display: "flex",
-            alignContent: "center",
+            width: "100%",
+            alignItems: "center",
             justifyContent: "center",
           }}
         >
           <Link
             to={"/add-account"}
-            className="inline-flex text-center  mb-8 items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex text-center  mt-8 items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Add New Account
           </Link>
@@ -45,7 +44,12 @@ const AccountList = ({ profile }) => {
                 work.
               </p>
             </div>
-
+            <Link
+              to={"/add-account"}
+              className="inline-flex text-center  mb-8 items-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Add New Account
+            </Link>
             {/* Loop */}
             {accounts?.map((account) => (
               <div className="flex flex-wrap -mx-4">
@@ -63,7 +67,7 @@ const AccountList = ({ profile }) => {
                         </div>
                         <div className="w-full lg:w-1/3 px-4 lg:text-right">
                           <Link
-                            to={/account/`${account?._id}`}
+                            to={`/account/${account?._id}`}
                             className="inline-flex ml-auto items-center font-medium leading-6 text-green-500 group-hover:text-green-600 transition duration-200"
                           >
                             <span className="mr-2">View Account</span>
