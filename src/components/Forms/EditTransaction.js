@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   getTransactionAction,
   updateTransactionAction,
-} from "../../redux/slice/transactions/transactionSlice";
+} from "../Redux/aadTransactions";
 
 const EditTransaction = () => {
   //get transaction id
