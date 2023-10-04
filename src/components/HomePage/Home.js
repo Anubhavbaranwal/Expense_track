@@ -23,12 +23,14 @@ const Home = () => {
                     <div>
                       <a
                         className="inline-block mb-3 lg:mb-0 lg:mr-3 w-full lg:w-auto py-2 px-6 leading-loose bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-l-xl rounded-t-xl transition duration-200"
-                        href="">
+                        href=""
+                      >
                         Get Started
                       </a>
                       <a
                         className="inline-block w-full lg:w-auto py-2 px-6 leading-loose font-semibold bg-white hover:bg-gray-50 rounded-l-xl rounded-t-xl transition duration-200"
-                        href="/">
+                        href="/"
+                      >
                         Enroll in the Course
                       </a>
                     </div>
@@ -74,7 +76,8 @@ const Home = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        stroke="currentColor">
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -103,7 +106,8 @@ const Home = () => {
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        className="h-8 w-8 md:w-12 md:h-12 text-yellow-500">
+                        className="h-8 w-8 md:w-12 md:h-12 text-yellow-500"
+                      >
                         <path
                           stroke-linecap="round"
                           stroke-linejoin="round"
@@ -132,7 +136,8 @@ const Home = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke="currentColor">
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -161,7 +166,8 @@ const Home = () => {
                         className="h-8 w-8 md:w-12 md:h-12 text-purple-500"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
-                        fill="currentColor">
+                        fill="currentColor"
+                      >
                         <path
                           fillRule="evenodd"
                           d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
