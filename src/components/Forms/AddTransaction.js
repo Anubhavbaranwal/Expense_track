@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { createTransactionAction } from "../../redux/slice/transactions/transactionSlice";
+import { createTransactionAction } from "../Redux/aadTransactions";
 
 const AddTransaction = () => {
   //get the account ID
